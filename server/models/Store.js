@@ -1,20 +1,10 @@
 const mongoose = require('mongoose'),
 { Schema } = mongoose;
+const geocoder = require('../utils/geocoder')
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// create GeoLocation Schema
-const GeoSchema = new Schema({
-    type: {
-        type: String,
-        default: 'Point'
-    },
-    coordinates: {
-        type: [Number],
-        index: '2dsphere'
-    }
-});
 
 // create StoreSchema
 const StoreSchema = new Schema ({
@@ -42,11 +32,30 @@ const StoreSchema = new Schema ({
     },
     logo: {
         type: String,
-        required: true,
+        required: false,
 
+
+    }, address: {
+        type: String,
+        required: false
 
     },
-    geometry: GeoSchema,
+
+    location: {
+        type: {
+          type: String, 
+          enum: ['Point'],
+        },
+        coordinates: {
+          type: [Number],
+          index: '2dsphere'
+        },
+        formattedAddress: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 
     password: {
         type: String,
@@ -149,6 +158,13 @@ StoreSchema.pre('save', function (next) {
     } else {
         next()
     }
+})
+
+StoreSchema.pre('save', async function (next) {
+
+const loc = await geocoder.geocode(this.address);
+console.log(loc);
+
 })
 
 module.exports = mongoose.model('Store', StoreSchema);

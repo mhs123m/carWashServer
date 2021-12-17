@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -7,15 +8,20 @@ const storeRouter = require('./routes/store');
 const morgan = require('morgan')
 const cors = require('cors')
 
+// load env variables
+dotenv.config({ path: './config/config.env' });
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/blog',{
     useNewUrlParser: true,
 	useUnifiedTopology: true,
 })
 
-app.use(cors())
+// enable cors
+app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json())
+// body parser
+app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }))
