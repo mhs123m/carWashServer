@@ -97,7 +97,7 @@ StoreSchema.methods.removeToken = function (token) {
 }
 
 StoreSchema.statics.findByToken = function (token) {
-    var Store = this
+    var store = this
     var decoded
 
     try {
@@ -107,7 +107,7 @@ StoreSchema.statics.findByToken = function (token) {
         return Promise.reject()
     }
 
-    return Store.findOne({
+    return store.findOne({
         '_id': decoded._id,
         'tokens.token': token,
         'tokens.access': 'auth'

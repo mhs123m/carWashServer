@@ -42,17 +42,14 @@ module.exports = {
 
     // PATCH // stores/:Id
     update: async (req, res) => {
-        //You can pass req.body directly or you can separate object
-        const { name, email, phone, logo } = req.body;
-        const { _id } = req.params;
-        const filter = { storeId : _id }
-      
-        const updatedUser =  await Store.findOneAndUpdate(filter, req.body, { new: true }).catch(error => {
-          return res.status(500).send(error);
-        });
-      
-        return res.status(200).json(updatedUser);
-    
+
+        const store = await Store.findById(req.params.storeId);
+	if (!store) return res.status(404).send('The task with the given ID was not found.');
+
+	const updates = _.pick(req.body, ['name', 'email', 'phone', 'logo']);
+	_.merge(store, updates);
+	await store.save();
+	res.send(store);
     }
 
 }
