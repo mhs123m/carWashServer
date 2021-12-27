@@ -35,13 +35,9 @@ const StoreSchema = new Schema ({
         required: false,
 
 
-    }, address: {
-        type: String,
-        required: false
+    }, 
 
-    },
-
-    location: {
+    geometry: {
         type: {
           type: String, 
           enum: ['Point'],
@@ -79,13 +75,13 @@ StoreSchema.methods.toJSON = function () {
     var store = this
     var storeObject = store.toObject()
 
-    return _.pick(storeObject, ['_id', 'name', 'email', 'phone', 'logo' ])
+    return _.pick(storeObject, ['_id', 'name', 'email', 'phone', 'logo', 'geometry' ])
 }
 
 StoreSchema.methods.generateAuthToken = function () {
     var store = this
     var access = 'auth'
-    var token = jwt.sign({ _id: store._id.toHexString(), access }, process.env.JWT_SECRET || 'lacorbi86').toString()
+    var token = jwt.sign({ _id: store._id.toHexString(), access }, process.env.JWT_SECRET || 'lacorbi86')
 
     store.tokens.push({ access, token })
 
@@ -121,7 +117,7 @@ StoreSchema.statics.findByToken = function (token) {
         'tokens.token': token,
         'tokens.access': 'auth'
     })
-}
+};
 
 StoreSchema.statics.findByCredentials = function (email, password) {
     var Store = this
@@ -158,13 +154,22 @@ StoreSchema.pre('save', function (next) {
     } else {
         next()
     }
-})
 
-StoreSchema.pre('save', async function (next) {
-
-const loc = await geocoder.geocode(this.address);
-console.log(loc);
 
 })
+
+// StoreSchema.pre('save', async function (next) {
+
+// const loc = await geocoder.geocode(this.address);
+// this.location = {
+//     type: 'Point',
+//     coordinates : [loc[0].longitude,loc[0].latitude],
+//     formattedAddress: loc[0].formattedAddress
+// };
+// // do not save address in db
+// this.address = undefined;
+// next()
+
+// });
 
 module.exports = mongoose.model('Store', StoreSchema);
