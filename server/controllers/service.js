@@ -1,12 +1,22 @@
 const Service = require('../models/Service');
 const Store = require('../models/Store');
 const _ = require('lodash');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     // index to get all services
     index: async (req, res) => {
-        const service = await Service.find().populate('storeId', 'name')
-        res.status(200).send(service);
+        try {
+            if (!ObjectId.isValid(req.params.storeId)) {
+                return res.status(400).send({ message: `Invalid store Id` })
+            }
+            const store = await Store.findById(req.params.storeId);
+            if (!store) return res.status(401).send('no store assigned to the provided id');
+            const service = await Service.find().where('storeId').equals(req.params.storeId);
+            res.status(200).send(service);
+        } catch (e) {
+            res.status(401).send(e.message);
+        }
     },
     // get one service by id
     one: async (req, res) => {
@@ -18,13 +28,17 @@ module.exports = {
     // create // to post a new service
     // created by store, storeId is passed in req.body as storeId
     create: async (req, res) => {
-        const store = await Store.findById(req.body.storeId);
-        if (!store) return res.status(401).send('no store assigned to the provided id');
-        var body = _.pick(req.body, ['title', 'description', 'durationInMin', 'price', 'availble', 'storeId'])
 
-        var service = new Service(body)
 
         try {
+            if (!ObjectId.isValid(req.params.storeId)) {
+                return res.status(400).send({ message: `Invalid store Id` })
+            }
+            const store = await Store.findById(req.body.storeId);
+            if (!store) return res.status(401).send('no store assigned to the provided id');
+            var body = _.pick(req.body, ['title', 'description', 'durationInMin', 'price', 'logo', 'available', 'storeId'])
+
+            var service = new Service(body)
             await service.save()
             return res.status(201).send(service)
         } catch (e) {
@@ -38,7 +52,7 @@ module.exports = {
         const service = await Service.findById(req.params.serviceId);
         if (!service) return res.status(401).send('no service found');
 
-        const updates = _.pick(req.body, ['title', 'description', 'durationInMin', 'price', 'availble', 'storeId']);
+        const updates = _.pick(req.body, ['title', 'description', 'durationInMin', 'price', 'logo', 'available', 'storeId']);
 
 
         try {
@@ -53,8 +67,8 @@ module.exports = {
     // DELETE //service/:Id
     delete: async (req, res) => {
 
-    const service = await Service.findById(req.params.serviceId);
-    if (!service) return res.status(401).send('no service found');
+        const service = await Service.findById(req.params.serviceId);
+        if (!service) return res.status(401).send('no service found');
         try {
             await service.remove()
             res.status(200).send(service)

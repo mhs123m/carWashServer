@@ -28,9 +28,15 @@ const ServiceSchema = new Schema({
         trim: true,
     },
 
-    availble: {
+    available: {
         type: Boolean,
         default: false
+    },
+
+    logo: {
+        type: String,
+        required: false,
+
     },
 
     storeId: {

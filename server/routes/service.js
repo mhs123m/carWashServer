@@ -5,7 +5,7 @@ const storeAuth = require('../middlewares/storeAuthenticate')
 
 // GET all services
 // path: / 
-router.get('/services', serviceController.index);
+router.get('/stores/:storeId/services',storeAuth, serviceController.index);
 
 // GET a service by id
 // /stores/storeId
