@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-{ Schema } = mongoose;
+    { Schema } = mongoose;
 const geocoder = require('../utils/geocoder')
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
@@ -7,14 +7,14 @@ const bcrypt = require('bcryptjs');
 
 
 // create StoreSchema
-const StoreSchema = new Schema ({
+const StoreSchema = new Schema({
     name: {
         type: String,
         required: true,
         minlength: 1,
         trim: true,
     },
-    
+
     email: {
         type: String,
         required: true,
@@ -35,29 +35,33 @@ const StoreSchema = new Schema ({
         required: false,
 
 
-    }, 
+    },
 
     geometry: {
         type: {
-          type: String, 
-          enum: ['Point'],
+            type: String,
+            enum: ['Point'],
         },
         coordinates: {
-          type: [Number],
-          index: '2dsphere'
+            type: [Number],
+            index: '2dsphere'
         },
         formattedAddress: String
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
+    appointments: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Appointment'
+    }],
 
     password: {
         type: String,
         require: true,
         minlength: 6
     },
+    services: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Service',
+    }],
 
     tokens: [{
         access: {
@@ -69,13 +73,15 @@ const StoreSchema = new Schema ({
             required: true
         }
     }]
+}, {
+    timestamps: true
 });
 
 StoreSchema.methods.toJSON = function () {
     var store = this
     var storeObject = store.toObject()
 
-    return _.pick(storeObject, ['_id', 'name', 'email', 'phone', 'logo', 'geometry' ])
+    return _.pick(storeObject, ['_id', 'name', 'email', 'phone', 'logo', 'geometry', 'services', 'appointments'])
 }
 
 StoreSchema.methods.generateAuthToken = function () {
@@ -108,7 +114,7 @@ StoreSchema.statics.findByToken = function (token) {
     try {
         decoded = jwt.verify(token, process.env.JWT_SECRET || 'lacorbi86')
     } catch (e) {
-		console.log(e)
+        console.log(e)
         return Promise.reject()
     }
 
@@ -123,7 +129,7 @@ StoreSchema.statics.findByCredentials = function (email, password) {
     var Store = this
 
     return Store.findOne({ email }).then((store) => {
-        
+
         if (!store) {
             return Promise.reject()
         }

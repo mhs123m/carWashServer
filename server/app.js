@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const app = express();
 const userRouter = require('./routes/user');
 const storeRouter = require('./routes/store');
+const serviceRouter = require('./routes/service');
+const appointmentRouter = require('./routes/appointment');
 const morgan = require('morgan')
 const cors = require('cors')
 
@@ -27,6 +29,8 @@ app.use(express.urlencoded({
 }))
 app.use(userRouter);
 app.use(storeRouter);
+app.use(serviceRouter);
+app.use(appointmentRouter);
 
 
 const port = process.env.PORT || 3000

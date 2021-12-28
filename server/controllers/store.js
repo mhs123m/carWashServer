@@ -66,7 +66,7 @@ module.exports = {
 
     // POST //stores/logout/:Id
     logout: async (req, res) => {
-        const store = await Store.findById(req.params.storeId);
+        
         try {
             await req.store.removeToken(req.token)
             await req.store.save()

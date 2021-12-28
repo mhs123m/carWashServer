@@ -34,6 +34,10 @@ const UserSchema = new Schema({
         require: true,
         minlength: 6
     },
+    appointments: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Appointment'
+    }],
 
     tokens: [{
         access: {
@@ -45,13 +49,15 @@ const UserSchema = new Schema({
             required: true
         }
     }]
+}, {
+    timestamps: true
 });
 
 UserSchema.methods.toJSON = function () {
     var user = this
     var userObject = user.toObject()
 
-    return _.pick(userObject, ['_id', 'fullname', 'email', 'phone' ])
+    return _.pick(userObject, ['_id', 'fullname', 'email', 'phone','appointments'])
 }
 
 UserSchema.methods.generateAuthToken = function () {

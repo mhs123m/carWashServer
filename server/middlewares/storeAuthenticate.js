@@ -1,4 +1,4 @@
-var Store  = require('./../models/Store');
+var Store  = require('../models/Store');
 
 // Authenticate middleware
 var authenticate = (req, res, next) => {

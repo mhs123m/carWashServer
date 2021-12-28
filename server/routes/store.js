@@ -22,6 +22,6 @@ router.post('/stores/login',storeController.login);
 router.patch('/stores/:storeId', storeController.update);
 
 // DELETE /stores/logout
-router.post('stores/logout/:storeId', storeAuth, storeController.logout);
+router.post('stores/logout', storeAuth, storeController.logout);
 
 module.exports = router;
