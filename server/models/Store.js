@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
-const geocoder = require('../utils/geocoder')
+// const geocoder = require('../utils/geocoder')
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
