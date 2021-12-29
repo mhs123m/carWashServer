@@ -11,7 +11,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 // load env variables
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './config/.env' });
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/blog',{
