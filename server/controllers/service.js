@@ -31,7 +31,7 @@ module.exports = {
 
 
         try {
-            if (!ObjectId.isValid(req.params.storeId)) {
+            if (!ObjectId.isValid(req.body.storeId)) {
                 return res.status(400).send({ message: `Invalid store Id` })
             }
             const store = await Store.findById(req.body.storeId);

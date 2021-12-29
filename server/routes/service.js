@@ -12,7 +12,7 @@ router.get('/stores/:storeId/services',storeAuth, serviceController.index);
 router.get('/services/:serviceId', serviceController.one);
 
 // POST a service 
-router.post('/services/new', serviceController.create);
+router.post('/services/new', serviceController.create); 
 
 // PATCH a service 
 router.patch('/services/:serviceId', serviceController.update);
