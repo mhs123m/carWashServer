@@ -13,8 +13,10 @@ const cors = require('cors')
 // load env variables
 dotenv.config({ path: './config/.env' });
 
+console.log("Mongo URI:", process.env.MONGO_URI)
+
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/blog',{
+mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser: true,
 	useUnifiedTopology: true,
 })
