@@ -9,15 +9,15 @@ router.get('/stores/:storeId/services',storeAuth, serviceController.index);
 
 // GET a service by id
 // /stores/storeId
-router.get('/services/:serviceId', serviceController.one);
+router.get('/services/:serviceId', storeAuth ,serviceController.one);
 
 // POST a service 
-router.post('/services/new', serviceController.create); 
+router.post('/services/new', storeAuth, serviceController.create); 
 
 // PATCH a service 
-router.patch('/services/:serviceId', serviceController.update);
+router.patch('/services/:serviceId', storeAuth, serviceController.update);
 
 // DELETE a service 
-router.delete('/services/:serviceId', serviceController.delete);
+router.delete('/services/:serviceId', storeAuth ,serviceController.delete);
 
 module.exports = router;
