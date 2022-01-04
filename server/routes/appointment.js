@@ -8,20 +8,20 @@ const userAuth = require('../middlewares/userAuthenticate');
 
 // GET all appointments of a store
 // path: / 
-router.get('/stores/appointments/:storeId',storeAuth, appointmentController.index);
+router.get('/appointments/:storeId',storeAuth, appointmentController.index);
 
 // GET an appointment by id
 // /appoint/appointId
-router.get('/stores/appointments/:appointmentId', storeAuth, appointmentController.one);
+router.get('/appointments/:appointmentId', appointmentController.one);
 
 // POST a new appointment by a store 
-router.post('/stores/appointments/new', storeAuth, appointmentController.create);
+router.post('/appointments/new', appointmentController.create);
 
 // PATCH a service 
-router.patch('/stores/appointments/:appointmentId',storeAuth, appointmentController.update);
+router.patch('/appointments/:appointmentId', appointmentController.update);
 
 // DELETE a service 
-router.delete('/stores/appointments/:appointmentId',storeAuth, appointmentController.delete);
+router.delete('/appointments/:appointmentId', appointmentController.delete);
 
 ///// USER ROUTES
 
@@ -29,17 +29,17 @@ router.delete('/stores/appointments/:appointmentId',storeAuth, appointmentContro
 // path: / 
 router.get('/users/appointments/:userId',userAuth, appointmentController.index_user);
 
-// GET an appointment by id
-// /appoint/appointId
-router.get('/users/appointments/:appointmentId', userAuth, appointmentController.one);
+// // GET an appointment by id
+// // /appoint/appointId
+// router.get('/users/appointments/:appointmentId', userAuth, appointmentController.one);
 
-// POST a new appointment by a user 
-router.post('/users/appointments/new', userAuth, appointmentController.create);
+// // POST a new appointment by a user 
+// router.post('/users/appointments/new', appointmentController.create);
 
-// PATCH an appointment by a user 
-router.patch('/users/appointments/:appointmentId',userAuth, appointmentController.update);
+// // PATCH an appointment by a user 
+// router.patch('/users/appointments/:appointmentId', appointmentController.update);
 
-// DELETE an appointment by a user 
-router.delete('/users/appointments/:appointmentId',userAuth, appointmentController.delete);
+// // DELETE an appointment by a user 
+// router.delete('/users/appointments/:appointmentId', appointmentController.delete);
 
 module.exports = router;
