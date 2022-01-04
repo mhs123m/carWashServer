@@ -6,6 +6,10 @@ const AppointmentSchema = new Schema({
         type: Number,
         unique: true
     },
+    index: {
+        type: Number,
+        unique: true
+    },
     duration: {
         type: Number,
         default: 30,
