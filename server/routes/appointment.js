@@ -8,7 +8,7 @@ const userAuth = require('../middlewares/userAuthenticate');
 
 // GET all appointments of a store
 // path: / 
-router.get('/appointments/:storeId',storeAuth, appointmentController.index);
+router.get('/appointments/:storeId', appointmentController.index);
 
 // GET an appointment by id
 // /appoint/appointId
@@ -27,7 +27,7 @@ router.delete('/appointments/:appointmentId', appointmentController.delete);
 
 // GET all appointments of a user
 // path: / 
-router.get('/users/appointments/:userId',userAuth, appointmentController.index_user);
+router.get('/users/appointments/:userId', appointmentController.index_user);
 
 // // GET an appointment by id
 // // /appoint/appointId
