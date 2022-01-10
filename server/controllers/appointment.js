@@ -29,7 +29,7 @@ module.exports = {
             if (!ObjectId.isValid(req.params.userId)) {
                 throw { status: 400, error: `Invalid user Id` }
             }
-            const appointment = await Appointment.find().where('userId').equals(req.params.userId)
+            const appointment = await Appointment.find().where('userId').equals(req.params.userId).populate('serviceId')
             res.status(200).send(appointment);
         } catch (error) {
             res.status(404).send({
@@ -64,7 +64,7 @@ module.exports = {
             
             var body = _.pick(req.body, ['_id', 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
 
-            var appointment = new Appointment(body)
+            var appointment = new Appointment(body).populate('serviceId')
             await appointment.save()
             return res.status(201).send(appointment)
         } catch (e) {
