@@ -46,7 +46,7 @@ module.exports = {
             if (!ObjectId.isValid(req.params.appointmentId)) {
                 return res.status(400).send({message: `Invalid appointment Id`}) 
             }
-            const appointment = await Appointment.findById(req.params.appointmentId).populate('storeId').populate(userId)
+            const appointment = await Appointment.findById(req.params.appointmentId).populate('storeId').populate('userId')
             if (!appointment) return res.status(404).send('The appointment with the given ID was not found.')
             res.status(201).send(appointment)
         }
@@ -62,7 +62,7 @@ module.exports = {
 
         try {
             
-            var body = _.pick(req.body, ['_id', 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
+            var body = _.pick(req.body, [ 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
 
             var appointment = new Appointment(body).populate('serviceId')
             await appointment.save()

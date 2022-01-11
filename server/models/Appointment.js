@@ -2,13 +2,10 @@ const mongoose = require('mongoose'),
 { Schema } = mongoose;
 
 const AppointmentSchema = new Schema({
-    _id: {
-        type: Number,
-        unique: true
-    },
+    
     index: {
         type: Number,
-        unique: true
+        
     },
     duration: {
         type: Number,
