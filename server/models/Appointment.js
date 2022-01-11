@@ -22,10 +22,11 @@ const date = {
         type:Number,
         required:true
     },
-    index: {
+    slot: {
         type: Number,
         require: true,
-        unique: true
+        unique: true,
+
     }
 };
 
