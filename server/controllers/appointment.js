@@ -6,6 +6,17 @@ var ObjectId = require('mongoose').Types.ObjectId;
 const _ = require('lodash');
 
 module.exports = {
+    all: async (req, res) => {
+        try {
+           
+            const appointment = await Appointment.find()
+            res.status(200).send(appointment);
+        } catch (error) {
+            res.status(404).send({
+                error: error
+            });
+        }
+    },
     // index to get all appointments for a sotre
     index: async (req, res) => {
 

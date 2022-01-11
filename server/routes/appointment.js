@@ -6,6 +6,9 @@ const userAuth = require('../middlewares/userAuthenticate');
 
 ////// STORE ROUTES
 
+router.get('/appointments', appointmentController.all);
+
+
 // GET all appointments of a store
 // path: / 
 router.get('/appointments/:storeId', appointmentController.index);
