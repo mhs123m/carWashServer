@@ -62,7 +62,7 @@ module.exports = {
 
         try {
             
-            var body = _.pick(req.body, [ 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
+            var body = _.pick(req.body, ['_id', 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
 
             var appointment = new Appointment(body).populate('serviceId')
             await appointment.save()
