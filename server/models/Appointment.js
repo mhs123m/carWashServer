@@ -1,3 +1,5 @@
+const { index } = require('../controllers/appointment');
+
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
 
@@ -58,6 +60,10 @@ const AppointmentSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Store',
         required: true
+    },
+    index: {
+        type: index,
+        sparse: true
     },
 }, {
     timestamps: true
