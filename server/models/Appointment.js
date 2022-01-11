@@ -27,9 +27,7 @@ const date = {
 const AppointmentSchema = new Schema({
 
     date: {
-        type: date,
-        required: true,
-        sparse: true
+        type: date
     },
     duration: {
         type: Number,
