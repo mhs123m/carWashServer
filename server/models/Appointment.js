@@ -21,12 +21,6 @@ const date = {
     minutes: {
         type: Number,
         required: true
-    },
-    slot: {
-        type: Number,
-        require: true,
-        unique: true,
-
     }
 };
 
@@ -34,7 +28,8 @@ const AppointmentSchema = new Schema({
 
     date: {
         type: date,
-        required: true
+        required: true,
+        sparse: true
     },
     duration: {
         type: Number,
