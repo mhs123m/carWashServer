@@ -61,10 +61,21 @@ module.exports = {
 
 
         try {
-            
-            var body = _.pick(req.body, ['_id', 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
+            if (!ObjectId.isValid(req.body.storeId)) {
+                return res.status(400).send({ message: `Invalid store Id` })
+            }
+            if (!ObjectId.isValid(req.body.userId)) {
+                return res.status(400).send({ message: `Invalid user Id` })
+            }
+            const store = await Store.findById(req.body.storeId);
+            if (!store) return res.status(401).send('no store assigned to the provided id');
 
-            var appointment = new Appointment(body).populate('serviceId')
+            const user = await User.findById(req.body.userId);
+            if (!user) return res.status(401).send('no user assigned to the provided id');
+
+            var body = _.pick(req.body, [ 'index', 'duration', 'available', 'status', 'serviceId', 'storeId', 'userId'])
+
+            var appointment = new Appointment(body)
             await appointment.save()
             return res.status(201).send(appointment)
         } catch (e) {
