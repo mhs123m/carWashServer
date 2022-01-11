@@ -1,26 +1,26 @@
 const mongoose = require('mongoose'),
-{ Schema } = mongoose;
+    { Schema } = mongoose;
 
 const date = {
-    year:{
-        type:Number,
-        required:true
+    year: {
+        type: Number,
+        required: true
     },
-    month:{
-        type:Number,
-        required:true
+    month: {
+        type: Number,
+        required: true
     },
-    day:{
-        type:Number,
-        required:true
+    day: {
+        type: Number,
+        required: true
     },
-    hour:{
-        type:Number,
-        required:true
+    hour: {
+        type: Number,
+        required: true
     },
-    minutes:{
-        type:Number,
-        required:true
+    minutes: {
+        type: Number,
+        required: true
     },
     slot: {
         type: Number,
@@ -31,7 +31,7 @@ const date = {
 };
 
 const AppointmentSchema = new Schema({
-    
+
     date: {
         type: date,
         required: true
@@ -61,10 +61,12 @@ const AppointmentSchema = new Schema({
     },
 
     storeId: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Store',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store',
         required: true
-	},
+    },
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);
