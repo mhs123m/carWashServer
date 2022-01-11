@@ -61,10 +61,7 @@ const AppointmentSchema = new Schema({
         ref: 'Store',
         required: true
     },
-    index: {
-        type: index,
-        sparse: true
-    },
+    
 }, {
     timestamps: true
 });
