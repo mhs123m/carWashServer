@@ -1,11 +1,39 @@
 const mongoose = require('mongoose'),
 { Schema } = mongoose;
 
-const AppointmentSchema = new Schema({
-    
+const date = {
+    year:{
+        type:Number,
+        required:true
+    },
+    month:{
+        type:Number,
+        required:true
+    },
+    day:{
+        type:Number,
+        required:true
+    },
+    hour:{
+        type:Number,
+        required:true
+    },
+    minutes:{
+        type:Number,
+        required:true
+    },
     index: {
         type: Number,
-        
+        require: true,
+        unique: true
+    }
+};
+
+const AppointmentSchema = new Schema({
+    
+    date: {
+        type: date,
+        required: true
     },
     duration: {
         type: Number,
