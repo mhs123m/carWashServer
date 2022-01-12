@@ -3,35 +3,7 @@
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
 
-// const date = {
-//     year: {
-//         type: Number,
-//         required: true
-//     },
-//     month: {
-//         type: Number,
-//         required: true
-//     },
-//     day: {
-//         type: Number,
-//         required: true
-//     },
-//     hour: {
-//         type: Number,
-//         required: true
-//     },
-//     minutes: {
-//         type: Number,
-//         required: true
-//     }
-// };
-
-const AppointmentSchema = new Schema({
-
-    index: {
-        type: Number,
-        required: true
-    },
+const slot = {
     duration: {
         type: Number,
         default: 30,
@@ -62,8 +34,28 @@ const AppointmentSchema = new Schema({
         ref: 'Store',
         required: true
     },
-    
-}, {
+
+}
+
+const date = {
+    day: {
+        type: Date,
+        required: true
+    },
+    slot: [{
+        type: slot,
+        required: true
+    }]
+
+};
+
+const AppointmentSchema = new Schema({
+
+    day: [{
+        type: date, // date of appointment 
+        required: true
+
+    }],
     timestamps: true
 });
 
