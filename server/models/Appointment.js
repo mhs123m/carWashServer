@@ -16,22 +16,6 @@ const slot = {
         enum: ['Pending', 'Done', 'Cancelled'],
         default: 'Pending'
     },
-    serviceId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Service',
-        required: true
-    },
-
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
-
-    storeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Store',
-        required: true
-    },
     index: {
         type: Number,
         required: true
@@ -57,6 +41,22 @@ const AppointmentSchema = new Schema({
         type: date, // date of appointment 
         required: true
 
+    },
+    serviceId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Service',
+        required: true
+    },
+
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+
+    storeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Store',
+        required: true
     }
 }
     , {

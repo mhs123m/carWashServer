@@ -72,13 +72,13 @@ module.exports = {
 
 
         try {
-            if (!ObjectId.isValid(req.body.slot.storeId)) {
+            if (!ObjectId.isValid(req.body.storeId)) {
                 return res.status(400).send({ message: `Invalid store Id` })
             }
             if (!ObjectId.isValid(req.body.userId)) {
                 return res.status(400).send({ message: `Invalid user Id` })
             }
-            const store = await Store.findById(req.body.slot.storeId);
+            const store = await Store.findById(req.body.storeId);
             if (!store) return res.status(401).send('no store assigned to the provided id');
 
             const user = await User.findById(req.body.userId);
