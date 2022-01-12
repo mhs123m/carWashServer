@@ -90,7 +90,7 @@ module.exports = {
             await appointment.save()
             return res.status(201).send(appointment)
         } catch (e) {
-            res.status(409).send(e)
+            res.status(409).send(e.message)
         }
     },
 
