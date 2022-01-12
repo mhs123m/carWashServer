@@ -43,7 +43,8 @@ const AppointmentSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Done', 'Cancelled']
+        enum: ['Pending', 'Done', 'Cancelled'],
+        default: 'Pending'
     },
     serviceId: {
         type: Schema.Types.ObjectId,
