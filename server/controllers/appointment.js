@@ -84,7 +84,7 @@ module.exports = {
             const user = await User.findById(req.body.userId);
             if (!user) return res.status(401).send('no user assigned to the provided id');
 
-            var body = _.pick(req.body, [ 'day'])
+            var body = _.pick(req.body, [ 'day', 'storeId', 'userId','serviceId'])
 
             var appointment = new Appointment(body)
             await appointment.save()
