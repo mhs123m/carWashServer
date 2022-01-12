@@ -1,5 +1,3 @@
-
-
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
 
@@ -35,7 +33,7 @@ const slot = {
         required: true
     },
 
-}
+};
 
 const date = {
     day: {
