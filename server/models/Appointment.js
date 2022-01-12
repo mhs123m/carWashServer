@@ -57,6 +57,11 @@ const AppointmentSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Store',
         required: true
+    },
+    index: {
+        type: Number,
+        index: true,
+        sparse: true
     }
 }
     , {
