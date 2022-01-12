@@ -53,8 +53,10 @@ const AppointmentSchema = new Schema({
         type: date, // date of appointment 
         required: true
 
-    }],
-    timestamps: true
-});
+    }]
+}
+    , {
+        timestamps: true
+    });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);
