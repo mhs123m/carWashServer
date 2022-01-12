@@ -3,33 +3,33 @@ const { index } = require('../controllers/appointment');
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
 
-const date = {
-    year: {
-        type: Number,
-        required: true
-    },
-    month: {
-        type: Number,
-        required: true
-    },
-    day: {
-        type: Number,
-        required: true
-    },
-    hour: {
-        type: Number,
-        required: true
-    },
-    minutes: {
-        type: Number,
-        required: true
-    }
-};
+// const date = {
+//     year: {
+//         type: Number,
+//         required: true
+//     },
+//     month: {
+//         type: Number,
+//         required: true
+//     },
+//     day: {
+//         type: Number,
+//         required: true
+//     },
+//     hour: {
+//         type: Number,
+//         required: true
+//     },
+//     minutes: {
+//         type: Number,
+//         required: true
+//     }
+// };
 
 const AppointmentSchema = new Schema({
 
-    date: {
-        type: date,
+    index: {
+        type: Number,
         required: true
     },
     duration: {
