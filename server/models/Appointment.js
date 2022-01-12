@@ -49,11 +49,11 @@ const date = {
 
 const AppointmentSchema = new Schema({
 
-    day: [{
+    day: {
         type: date, // date of appointment 
         required: true
 
-    }]
+    }
 }
     , {
         timestamps: true
