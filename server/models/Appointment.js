@@ -1,4 +1,4 @@
-const { index } = require('../controllers/appointment');
+
 
 const mongoose = require('mongoose'),
     { Schema } = mongoose;
