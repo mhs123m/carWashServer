@@ -26,7 +26,7 @@ const slot = {
 
 const date = {
     day: {
-        type: Date,
+        type: String,
         default: Date.now,
     },
     slot: [{
