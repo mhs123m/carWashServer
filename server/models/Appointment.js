@@ -39,7 +39,7 @@ const AppointmentSchema = new Schema({
 
     day: {
         type: date, // date of appointment 
-        
+        required: true
 
     },
     serviceId: {
