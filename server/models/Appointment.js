@@ -32,6 +32,10 @@ const slot = {
         ref: 'Store',
         required: true
     },
+    index: {
+        type: Number,
+        required: true
+    }
 
 };
 
