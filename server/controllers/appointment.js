@@ -40,7 +40,7 @@ module.exports = {
             if (!ObjectId.isValid(req.params.userId)) {
                 throw { status: 400, error: `Invalid user Id` }
             }
-            var appointment = await Appointment.find().where('userId').equals(req.params.userId).populate('serviceId')
+            var appointment = await Appointment.find().where('userId').equals(req.params.userId).populate()
             res.status(200).send(appointment);
         } catch (error) {
             res.status(404).send({
