@@ -113,7 +113,7 @@ module.exports = {
         if (!appointment) return res.status(401).send('no appointment found');
 
         // user would only change status to -> canceled 
-        const updates = _.pick(req.body, ['status', 'serviceId', 'storeId', 'userId']);
+        const updates = _.pick(req.body, ['day', 'storeId', 'userId','serviceId']);
 
             _.merge(appointment, updates);
             await appointment.save();
