@@ -14,6 +14,12 @@ module.exports = {
         })
     },
 
+    one: async (req, res) => {
+        const user = await User.findById(req.params.userId)
+        if (!user) return res.status(404).send('The user with the given ID was not found.')
+        res.send(user)
+    },
+
     // create // to post a new user
     create: async (req, res) => {
         var body = _.pick(req.body, ['fullname', 'email', 'phone', 'password'])

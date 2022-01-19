@@ -5,6 +5,8 @@ userController = require('../controllers/user');
 // path: / 
 router.get('/users', userController.index);
 
+// GET one user
+router.get('users/:userId', userController.one);
 
 // POST / register user
 router.post('/users/register', userController.create);
