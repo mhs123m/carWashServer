@@ -15,7 +15,7 @@ module.exports = {
         })
     },
 
-    one: async (req, res) => {
+    oneUser: async (req, res) => {
         try {
             if (!ObjectId.isValid(req.params.userId)) {
                 return res.status(400).send({ message: `Invalid user Id` })
