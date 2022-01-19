@@ -12,7 +12,8 @@ module.exports = {
             }
             const store = await Store.findById(req.params.storeId);
             if (!store) return res.status(401).send('no store assigned to the provided id');
-            const service = await Service.find().where('storeId').equals(req.params.storeId);
+            const service = await Service.find().where('storeId').equals(req.params.storeId)
+            .populate('storeId', 'name geometry')
             res.status(200).send(service);
         } catch (e) {
             res.status(401).send(e.message);
