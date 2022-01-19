@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const auth = require('../middlewares/userAuthenticate')
 const _ = require('lodash');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     // index to get all users
@@ -15,9 +16,16 @@ module.exports = {
     },
 
     one: async (req, res) => {
-        const user = await User.findById(req.params.userId)
-        if (!user) return res.status(404).send('The user with the given ID was not found.')
-        res.send(user)
+        try {
+            if (!ObjectId.isValid(req.params.userId)) {
+                return res.status(400).send({ message: `Invalid user Id` })
+            }
+            const user = await User.findById(req.params.userId);
+            if (!user) return res.status(401).send('no user assigned to the provided id');
+            res.status(200).send(user);
+        } catch (e) {
+            res.status(401).send(e.message);
+        }
     },
 
     // create // to post a new user
