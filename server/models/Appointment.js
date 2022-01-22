@@ -19,7 +19,8 @@ const slot = {
     index: {
         type: Number,
         required: true,
-        unique: true
+        // unique: true , I need to work around the appointment schema to have the index working correct
+        // i should have a day schema that have array of appointments
     }
 
 };
