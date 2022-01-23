@@ -5,14 +5,14 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = {
     // index to get all users
-    index: (req,res)=> {
+    index: (req, res) => {
         User.find({})
-        .then(users=> {
-            res.json(users)
-        })
-        .catch(error=> {
-            res.json({error : error})
-        })
+            .then(users => {
+                res.json(users)
+            })
+            .catch(error => {
+                res.json({ error: error })
+            })
     },
 
     oneUser: async (req, res) => {
@@ -31,9 +31,9 @@ module.exports = {
     // create // to post a new user
     create: async (req, res) => {
         var body = _.pick(req.body, ['fullname', 'email', 'phone', 'password'])
-    
+
         var user = new User(body)
-    
+
         try {
             await user.save()
             const token = await user.generateAuthToken()
@@ -57,19 +57,33 @@ module.exports = {
 
     // PATCH // users/:userId
     update: async (req, res) => {
-        // TODO: updating uninitialized body field is possible. look at user 1 in mongoDB
-        const { fullname, email, phone } = req.body;
-        const { _id } = req.params;
-        const filter = { userId : _id }
-      
-        const updatedUser =  await User.findOneAndUpdate(filter, req.body, { new: true }).catch(error => {
-          return res.status(500).send(error);
-        });
-      
-        return res.status(200).json(updatedUser);
-    
+        // // TODO: updating uninitialized body field is possible. look at user 1 in mongoDB
+        // const { fullname, email, phone } = req.body;
+        // const { _id } = req.params;
+        // const filter = { userId : _id }
+
+        // const updatedUser =  await User.findOneAndUpdate(filter, req.body, { new: true }).catch(error => {
+        //   return res.status(500).send(error);
+        // });
+
+        // return res.status(200).json(updatedUser);
+
+        const user = await User.findById(req.params.userId);
+        if (!user) return res.status(404).send('no user found.');
+
+        const updates = _.pick(req.body, ['fullname', 'email', 'phone']);
+
+
+        try {
+            _.merge(user, updates);
+            await user.save();
+            res.status(200).send(user);
+        } catch {
+            res.status(401).send(e)
+        }
     }
-    
+
+
 }
 
 
