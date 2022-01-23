@@ -51,7 +51,7 @@ module.exports = {
             var token = await user.generateAuthToken()
             res.header('x-auth', token).send(user)
         } catch (e) {
-            res.status(400).send(e)
+            res.status(401).send(e.message)
         }
     },
 
