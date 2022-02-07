@@ -8,8 +8,8 @@
 * mongoDB
 * mongoose
 
-### Code Structure
-#### MVC
+### Code Structure:
+###### MVC
 
 ### Libraries Used (npm):
 * bcryptjs
